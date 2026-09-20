@@ -122,3 +122,75 @@ var productExceptSelf = function (nums) {
     return answer;
 };
 
+
+
+// 07. Rotate Array
+/**
+* @param {number[]} nums
+* @param {number} k
+* @return {void}
+*/
+var rotate = function (nums, k) {
+    k = k % nums.length;
+    if (k === 0) return;
+
+    const reverse = (start, end) => {
+        while (start < end) {
+            const temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    };
+
+    reverse(0, nums.length - 1);
+    reverse(0, k - 1);
+    reverse(k, nums.length - 1);
+};
+
+
+
+// 08. Min Stack
+/**
+* @return {void}
+*/
+var MinStack = function () {
+    this.stack = [];
+    this.minStack = [];
+};
+
+/**
+* @param {number} val
+* @return {void}
+*/
+MinStack.prototype.push = function (val) {
+    this.stack.push(val);
+    if (this.minStack.length === 0 || val <= this.minStack[this.minStack.length - 1]) {
+        this.minStack.push(val);
+    }
+};
+
+/**
+* @return {void}
+*/
+MinStack.prototype.pop = function () {
+    const val = this.stack.pop();
+    if (val === this.minStack[this.minStack.length - 1]) {
+        this.minStack.pop();
+    }
+};
+
+/**
+* @return {number}
+*/
+MinStack.prototype.top = function () {
+    return this.stack[this.stack.length - 1];
+};
+
+/**
+* @return {number}
+*/
+MinStack.prototype.getMin = function () {
+    return this.minStack[this.minStack.length - 1];
+};
